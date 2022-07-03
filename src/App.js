@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from 'react';
-import './App.css'
+import './App.css';
 import styled from 'styled-components'; 
 import { ButtonMinus, ButtonCheck, ButtonPlus, ButtonGen, ButtonCopy } from './components/buttons';
 import genPass from './functions/generatePass';
@@ -120,7 +120,7 @@ const App = () => {
   p{
     font-size: 20px;
   }
-  `
+  `;
 const Fila = styled.div`
   margin-bottom: 40px;
   display: grid;
@@ -162,5 +162,5 @@ const Input = styled.input`
   &::-moz-selection{
     background: #001219;
   }
-`
+`;
 

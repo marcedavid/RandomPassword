@@ -84,4 +84,4 @@ const BtnClose = styled(Boton)`
   &:hover{
     background: #33257E;
   } 
-`
+`;
