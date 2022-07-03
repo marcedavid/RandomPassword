@@ -1,8 +1,13 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import './App.css'
 import styled from 'styled-components'; 
-import { ButtonMinus, ButtonCheck, ButtonPlus, ButtonGen } from './components/buttons';
+import { ButtonMinus, ButtonCheck, ButtonPlus, ButtonGen, ButtonCopy } from './components/buttons';
 import genPass from './functions/generatePass';
+import CopyToClipboard from 'react-copy-to-clipboard';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 const App = () => {
     const [config, changeConfig] = useState({
       numeroDeCaracteres: 8,
@@ -10,9 +15,14 @@ const App = () => {
       numeros: true,
       mayusculas: true
     });
+    const notify = () => toast('Copiado al portapapeles');
 
     const [passGen, changePassGen] = useState('')
 
+    useEffect(() =>{
+      changePassGen(genPass(config));
+    }, [config]);
+    
     const increaseChar = () => {
       changeConfig((prevConfig) => {
         const newConfig = {...prevConfig};
@@ -27,34 +37,36 @@ const App = () => {
           const newConfig = {...prevConfig};
           newConfig.numeroDeCaracteres -= 1;
           return newConfig;
-      })};
-     
-    }
-    const onSubmit = (e) => {
-      e.preventDefault();
-      changePassGen(genPass(config));
-    }
-    const toggleSimbolos = () =>{
+          });
+        }
+  }
+  
+  const toggleSimbolos = () =>{
       changeConfig((prevConfig) => {
         const newConfig = {...prevConfig};
         newConfig.simbolos = !newConfig.simbolos;
         return newConfig;
-    });
-    }
-    const toggleNumeros = () =>{
+      });
+  }
+  const toggleNumeros = () =>{
       changeConfig((prevConfig) => {
         const newConfig = {...prevConfig};
         newConfig.numeros = !newConfig.numeros;
         return newConfig;
-    });
+      });
   }
   const toggleMayus = () =>{
     changeConfig((prevConfig) => {
       const newConfig = {...prevConfig};
       newConfig.mayusculas = !newConfig.mayusculas;
       return newConfig;
-  });
-}
+      });
+  }    
+  const onSubmit = (e) => {
+      e.preventDefault();
+      changePassGen(genPass(config));
+    }    
+
     return (
       <div className='contenedor'>
         <Title>
@@ -70,7 +82,6 @@ const App = () => {
               <ButtonMinus click={decreaseChar} />
               <span>{config.numeroDeCaracteres}</span>
               <ButtonPlus click={increaseChar} />
-              
             </Controls>
           </Fila>
           <Fila>
@@ -87,7 +98,10 @@ const App = () => {
           </Fila>
           <Fila>
             <ButtonGen />
-            <Input type='text' readOnly={true} value={passGen}/>
+            <CopyToClipboard text={passGen}>
+              <Input type='text' readOnly={true} value={passGen} onClick={notify}/>
+            </CopyToClipboard>
+            <ToastContainer />
           </Fila>
         </form>
       </div>

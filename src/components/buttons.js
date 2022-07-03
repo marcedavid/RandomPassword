@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+
 export const ButtonMinus = ({click}) =>{
     return(
         <Boton onClick={click}>
@@ -50,6 +51,8 @@ export const ButtonGen = () =>{
         </BtnGen>
     );
 }
+
+
 const Boton = styled.button`
   width: 100%;
   background: #684BFF;
@@ -59,7 +62,7 @@ const Boton = styled.button`
   justify-content: center;
   height: 40px;
   vertical-align: top;
-  font-size: 18px:
+  font-size: 18px;
   text-align: center;
   border: none;
   border-radius: 4px;
@@ -80,5 +83,5 @@ const BtnClose = styled(Boton)`
 
   &:hover{
     background: #33257E;
-  }
+  } 
 `

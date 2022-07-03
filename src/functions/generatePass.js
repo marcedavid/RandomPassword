@@ -23,6 +23,8 @@ const genPass = (config) => {
 	}
 
 	return password;
+
+	
 }
 
 export default genPass;
